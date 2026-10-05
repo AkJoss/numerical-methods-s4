@@ -7,16 +7,19 @@ using System;
 
 class NewtonRaphson
 {
+    // f(x) = x^2 - 5x + 6  (roots at x = 2 and x = 3)
     static double Funcion(double x)
     {
         return x * x - 5 * x + 6;
     }
 
+    // f'(x) used in the Newton update
     static double Derivada(double x)
     {
         return 2 * x - 5;
     }
 
+    // Classic Newton-Raphson: x_{n+1} = x_n - f(x_n)/f'(x_n)
     static double NewtonRaphsonMethod(double x0, double tol, int maxIter)
     {
         double x = x0;
@@ -41,7 +44,7 @@ class NewtonRaphson
 
     static void Main()
     {
-        double x0 = 3.0; // Estimación inicial
+        double x0 = 3.0; // Initial guess (already near a root)
         double tolerancia = 1e-6;
         int maxIteraciones = 100;
 

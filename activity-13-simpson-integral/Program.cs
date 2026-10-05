@@ -13,11 +13,13 @@ class SimpsonPrecision
         double a = -10;
         double b = 10;
 
-        double reference = Simpson(f, a, b, 10000); // Valor de referencia
+        // High-n result used as a reference to measure relative error.
+        double reference = Simpson(f, a, b, 10000);
         Console.WriteLine($"Valor de referencia (n=10000): {reference}\n");
 
         foreach (int n in subintervals)
         {
+            // Simpson's rule requires an even number of subintervals.
             if (n % 2 != 0)
             {
                 Console.WriteLine($"n = {n} → debe ser par. Se ajusta a n = {n + 1}");
@@ -37,7 +39,7 @@ class SimpsonPrecision
         }
     }
 
-    // Regla de Simpson
+    // Composite Simpson's rule: (h/3)*(y0 + 4y1 + 2y2 + ... + yn)
     static double Simpson(Func<double, double> f, double a, double b, int n)
     {
         double h = (b - a) / n;
@@ -58,7 +60,7 @@ class SimpsonPrecision
         return (h / 3) * sum;
     }
 
-    // f(x) = sin(x)/x + 1
+    // f(x) = sin(x)/x + 1  (limit at 0 is 2)
     static double f(double x)
     {
         return x == 0 ? 2 : Math.Sin(x) / x + 1;

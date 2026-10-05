@@ -7,6 +7,7 @@ using System;
 
 class GaussElimination
 {
+    // Read an n x (n+1) augmented matrix; each row is space-separated.
     static double[,] IngresarMatriz(int n)
     {
         double[,] matriz = new double[n, n + 1];
@@ -25,6 +26,7 @@ class GaussElimination
         return matriz;
     }
 
+    // Quick check for an all-zero coefficient row (dependent / singular case).
     static bool SonDependientes(double[,] matriz, int n)
     {
         for (int i = 0; i < n; i++)
@@ -39,6 +41,7 @@ class GaussElimination
         return false;
     }
 
+    // Forward elimination with simple row swap when the pivot is zero.
     static void Gauss(double[,] matriz, int n)
     {
         for (int i = 0; i < n; i++)
@@ -74,6 +77,7 @@ class GaussElimination
         }
     }
 
+    // Back substitution on the upper-triangular augmented matrix.
     static double[] Resolver(double[,] matriz, int n)
     {
         double[] soluciones = new double[n];

@@ -3,13 +3,15 @@
 // @author José Alberto Rocha Munguía
 //
 
+// Exact polynomial interpolation through 9 sample points (Vandermonde system).
 double[] x = { -2, -1, -0.3, 1.45, 4.3, 8, 9.56, 12.1, 23.5 };
 double[] y = { 5, 7.3, 1.23, -3.5, 3, 7.8, 0.1, 3.4, 2.3 };
 double[,] matriz = new double[9, 10];
 double pivote, factor;
-double x_0 = 5.234;
+double x_0 = 5.234; // evaluation point after solving for coefficients
 double y_0 = 0;
 
+// Build Vandermonde rows: [1, x, x^2, ..., x^8 | y]
 for (int i = 0; i < 9; i = i + 1)
 {
     for (int j = 0; j < 9; j = j + 1)
@@ -21,8 +23,8 @@ for (int i = 0; i < 9; i = i + 1)
 {
     matriz[i, 9] = y[i];
 }
-//Eliminación Gaussiana
-//------------------------------
+
+// Gaussian elimination on the augmented Vandermonde system.
 for (int reng = 0; reng < 9; reng = reng + 1)
 {
     pivote = matriz[reng, reng];
@@ -43,7 +45,8 @@ for (int reng = 0; reng < 9; reng = reng + 1)
         }
     }
 }
-//------------------------------
+
+// Evaluate the interpolating polynomial at x_0.
 for (int i = 0; i < 9; i = i + 1)
 {
     y_0 = y_0 + matriz[i, 9] * Math.Pow(x_0, i);

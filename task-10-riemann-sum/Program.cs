@@ -7,11 +7,13 @@ using System;
 
 class RiemannSum
 {
+    // Polynomial integrand used for the left Riemann sum demo.
     static double Funcion(double x)
     {
         return 3 * Math.Pow(x, 4) - 5 * Math.Pow(x, 3) + Math.Pow(x, 2) - 0.5 * x + 3;
     }
 
+    // Left Riemann sum on [a, b] with n subintervals.
     static double SumaDeRiemann(double a, double b, int n)
     {
         double suma = 0.0;
@@ -19,7 +21,7 @@ class RiemannSum
 
         for (int i = 0; i < n; i++)
         {
-            double x = a + i * deltaX;  // punto izquierdo
+            double x = a + i * deltaX; // left endpoint of each subinterval
             suma += Funcion(x) * deltaX;
         }
 
@@ -30,7 +32,7 @@ class RiemannSum
     {
         double a = 1.0 / 3.0;
         double b = 5.0 / 2.0;
-        int n = 100000;  // cuanto más grande, más preciso
+        int n = 100000; // more partitions => better approximation
 
         double resultado = SumaDeRiemann(a, b, n);
         Console.WriteLine($"Resultado de la suma de Riemann: {resultado:F6}");

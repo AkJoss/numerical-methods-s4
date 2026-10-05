@@ -11,11 +11,12 @@ class Program
     {
         double pivote, factor;
         int nDatos = 30;
-        int nCoef = 5; // Más coeficientes para mejor ajuste
+        int nCoef = 5; // basis size for the least-squares model
 
         double[,] jacobiana = new double[nDatos, nCoef];
         double[,] matriz = new double[nCoef, nCoef + 1];
 
+        // Sample (time, voltage) pairs used as regression targets.
         double[] voltaje = { 14.537, 17.877, 17.877, 15.546, 17.535, 23.933,
                              31.615, 36.277, 36.397, 34.61, 10.463,
                              13.803, 12.962, 11.472, 13.461, 19.859,
@@ -26,17 +27,17 @@ class Program
         double[] tiempo = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
                             17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 };
 
-        // Llenado de la matriz Jacobiana con más términos
+        // Design matrix columns: x^2, sin(x), e^(x/10), x^3, cos(x)
         for (int i = 0; i < nDatos; i++)
         {
             jacobiana[i, 0] = tiempo[i] * tiempo[i];
             jacobiana[i, 1] = Math.Sin(tiempo[i]);
             jacobiana[i, 2] = Math.Exp(tiempo[i] / 10);
-            jacobiana[i, 3] = Math.Pow(tiempo[i], 3); // x^3
-            jacobiana[i, 4] = Math.Cos(tiempo[i]); // cos(x)
+            jacobiana[i, 3] = Math.Pow(tiempo[i], 3);
+            jacobiana[i, 4] = Math.Cos(tiempo[i]);
         }
 
-        // Multiplicación de Jacobiana^T * Jacobiana
+        // Normal equations: (J^T J) c = J^T y
         for (int i = 0; i < nCoef; i++)
             for (int j = 0; j < nCoef; j++)
             {
@@ -45,7 +46,6 @@ class Program
                     matriz[i, j] += jacobiana[k, i] * jacobiana[k, j];
             }
 
-        // Multiplicación de Jacobiana^T * voltaje
         for (int i = 0; i < nCoef; i++)
         {
             matriz[i, nCoef] = 0;
@@ -53,7 +53,7 @@ class Program
                 matriz[i, nCoef] += voltaje[k] * jacobiana[k, i];
         }
 
-        // Eliminación Gaussiana para resolver el sistema
+        // Solve the normal system with Gaussian elimination.
         for (int reng = 0; reng < nCoef; reng++)
         {
             pivote = matriz[reng, reng];
@@ -77,14 +77,12 @@ class Program
             }
         }
 
-        // Obtener coeficientes
         double a = matriz[0, nCoef];
         double b = matriz[1, nCoef];
         double c = matriz[2, nCoef];
         double d = matriz[3, nCoef];
         double e = matriz[4, nCoef];
 
-        // Imprimir ecuación ajustada con más términos
         Console.WriteLine($"Ecuación ajustada:");
         Console.WriteLine($"y = {a} * x^2 + {b} * sin(x) + {c} * e^(x/10) + {d} * x^3 + {e} * cos(x)");
 

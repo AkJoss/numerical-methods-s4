@@ -3,9 +3,12 @@
 // @author José Alberto Rocha Munguía
 //
 
+// Augmented matrix [A|b] for a 3x3 linear system (3 rows, 4 columns).
 double[,] matriz = new double[3, 4];
 int a = 1;
 double pivote, factor;
+
+// Read coefficients row by row from the user.
 for (int i = 0; i < 3; i++)
 {
     for (int j = 0; j < 4; j++)
@@ -14,15 +17,19 @@ for (int i = 0; i < 3; i++)
         matriz[i, j] = double.Parse(Console.ReadLine());
     }
 }
+
+// Gaussian elimination to reduced row-echelon form.
 for (int reng = 0; reng < 3; reng++)
 {
     pivote = matriz[reng, reng];
 
+    // Scale the pivot row so the pivot becomes 1.
     for (int colu = 0; colu < 4; colu++)
     {
         matriz[reng, colu] = matriz[reng, colu] / pivote;
     }
 
+    // Eliminate the pivot column in every other row.
     for (int reng_elimi = 0; reng_elimi < 3; reng_elimi++)
     {
         if (reng_elimi != reng)
@@ -35,6 +42,8 @@ for (int reng = 0; reng < 3; reng++)
         }
     }
 }
+
+// Last column holds the solution after elimination.
 Console.WriteLine($" x = {matriz[0, 3]}");
 Console.WriteLine($" y = {matriz[1, 3]}");
 Console.WriteLine($" z = {matriz[2, 3]}");

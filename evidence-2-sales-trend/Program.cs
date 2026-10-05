@@ -9,7 +9,7 @@ class Program
 {
     static void Main()
     {
-        // Datos de entrada
+        // Monthly sales samples (18 points).
         double[] meses = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 };
         double[] ventas = { 65, 69, 76, 82, 89, 94, 96, 96, 92, 85, 76, 67, 58, 60, 70, 80, 82, 89 };
 
@@ -17,7 +17,7 @@ class Program
         double[,] A = new double[n, 4];
         double[] b = new double[n];
 
-        // Construcción de la matriz A y del vector b
+        // Model: sales ≈ x1*t + x2*cos(t) + x3*t^2 + x4
         for (int i = 0; i < n; i++)
         {
             A[i, 0] = meses[i];
@@ -27,13 +27,12 @@ class Program
             b[i] = ventas[i];
         }
 
-        // Resolver por mínimos cuadrados usando multiplicación de matrices
+        // Least squares via normal equations: (A^T A) x = A^T b
         double[,] At = TransponerMatriz(A);
         double[,] AtA = MultiplicarMatrices(At, A);
         double[] Atb = MultiplicarMatrizVector(At, b);
         double[] coeficientes = ResolverSistema(AtA, Atb);
 
-        // Mostrar coeficientes
         Console.WriteLine($"Coeficientes obtenidos: x1 = {coeficientes[0]}, x2 = {coeficientes[1]}, x3 = {coeficientes[2]}, x4 = {coeficientes[3]}");
     }
 

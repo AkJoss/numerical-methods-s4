@@ -10,6 +10,7 @@ class Program
 {
     static void Main()
     {
+        // Collect every n where f(n) flips sign versus f(n-1).
         List<int> cambiosDeSigno = new List<int>();
         int prevValor = Funcion(1);
         for (int n = 2; n <= 1000; n++)
@@ -30,6 +31,7 @@ class Program
         }
     }
 
+    // Toy alternating function: positive on even n, negative on odd n.
     static int Funcion(int n)
     {
         return n % 2 == 0 ? n : -n;

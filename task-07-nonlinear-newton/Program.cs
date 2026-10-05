@@ -7,6 +7,7 @@ using System;
 
 class NonlinearSystemSolver
 {
+    // Residual vector F(x, y, z) = 0 for the nonlinear system.
     static double[] F(double[] X)
     {
         double x = X[0], y = X[1], z = X[2];
@@ -18,6 +19,7 @@ class NonlinearSystemSolver
         };
     }
 
+    // Analytic Jacobian J = dF/dX used by multivariate Newton.
     static double[,] Jacobian(double[] X)
     {
         double x = X[0], y = X[1], z = X[2];
@@ -29,6 +31,7 @@ class NonlinearSystemSolver
         };
     }
 
+    // Gaussian elimination with partial pivoting: solve J * delta = -F.
     static double[] SolveLinearSystem(double[,] A, double[] B)
     {
         int n = B.Length;
@@ -60,6 +63,7 @@ class NonlinearSystemSolver
             }
         }
 
+        // Back substitution
         for (int i = n - 1; i >= 0; i--)
         {
             double sum = 0;
@@ -70,6 +74,7 @@ class NonlinearSystemSolver
         return X;
     }
 
+    // Multivariate Newton-Raphson: X_{k+1} = X_k + delta, until ||delta|| < tol.
     static double[] NewtonRaphson(double[] initial, int maxIter = 100, double tol = 1e-6)
     {
         double[] X = (double[])initial.Clone();
@@ -90,7 +95,8 @@ class NonlinearSystemSolver
 
     static void Main()
     {
-        double[] initialGuess = { 0, 0, 0 };
+        // Avoid {0,0,0}: J[0,0] = 8x becomes 0 and the linear solve blows up (NaN).
+        double[] initialGuess = { -1, 1, 0 };
         double[] solution = NewtonRaphson(initialGuess);
         Console.WriteLine($"Solución: x = {solution[0]}, y = {solution[1]}, z = {solution[2]}");
     }

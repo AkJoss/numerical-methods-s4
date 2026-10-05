@@ -7,11 +7,13 @@ using System;
 
 class Program
 {
+    // Integrand f(x) = x^3 + 5
     static double Function(double x)
     {
         return Math.Pow(x, 3) + 5;
     }
 
+    // Midpoint Riemann sum on [a, b] with n partitions.
     static double RiemannSum(double a, double b, int n)
     {
         double deltaX = (b - a) / n;

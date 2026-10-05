@@ -3,10 +3,11 @@
 // @author José Alberto Rocha Munguía
 //
 
+// Scan for a root bracket of f(x) = x^2 - 5x + 6 by walking to the right
+// until consecutive function values change sign (intermediate-value idea).
 float a = 1;
 float b = -5;
 float c = 6;
-
 
 Console.WriteLine("Desde que numero quieres empezar la formula");
 double x_nuevo = double.Parse(Console.ReadLine());

@@ -9,17 +9,16 @@ class Program
 {
     static void Main()
     {
-        // Datos de entrada
+        // Tabulated samples to fit f(t) ≈ x1 * t + x2 * sin(t)
         double[] t = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
         double[] f = { 7.2074, 10.5465, 9.7056, 8.2160, 10.2054, 16.6029, 24.2849, 28.9468, 29.0606, 27.2799 };
 
         int n = t.Length;
 
-        // Variables para los sumatorios
+        // Accumulated sums for the 2x2 normal equations.
         double sumT = 0, sumSinT = 0, sumFT = 0, sumFSinT = 0;
         double sumT2 = 0, sumSinT2 = 0, sumTSinT = 0, sumF = 0;
 
-        // Cálculo de los sumatorios
         for (int i = 0; i < n; i++)
         {
             double sinT = Math.Sin(t[i]);
@@ -33,7 +32,7 @@ class Program
             sumF += f[i];
         }
 
-        // Resolver el sistema de ecuaciones lineales
+        // Closed-form solution of the 2-parameter least-squares system.
         double denominator = (sumT2 * sumSinT2 - sumTSinT * sumTSinT);
         if (Math.Abs(denominator) < 1e-9)
         {
@@ -44,7 +43,6 @@ class Program
         double x1 = (sumFT * sumSinT2 - sumFSinT * sumTSinT) / denominator;
         double x2 = (sumFSinT * sumT2 - sumFT * sumTSinT) / denominator;
 
-        // Mostrar resultados
         Console.WriteLine($"Coeficiente x1: {x1}");
         Console.WriteLine($"Coeficiente x2: {x2}");
         Console.WriteLine($"Ecuación ajustada: f(t) = {x1} * t + {x2} * sin(t)");
