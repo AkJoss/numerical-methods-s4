@@ -1,23 +1,23 @@
-# Numerical Methods (4th semester)
+# 📐 Numerical Methods (4th semester)
 
 C# console coursework from **Métodos Numéricos** — cleaned portfolio (no `bin/`, `obj/`, or Visual Studio junk).
 
 **Author:** José Alberto Rocha Munguía
 
-## Requirements
+## 🛠️ Requirements
 
 - [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 
-## Run any project
+## ▶️ Run any project
 
 ```bash
 cd activity-06-gaussian-elimination   # example
 dotnet run
 ```
 
-## Projects
+## 📦 Projects
 
-### Activities
+### 🧪 Activities
 | Folder | Topic |
 |---|---|
 | `activity-01-console-basics` | Console I/O, arithmetic, comparisons |
@@ -33,7 +33,7 @@ dotnet run
 | `activity-12-riemann-integral` | Riemann sum integral |
 | `activity-13-simpson-integral` | Simpson's rule integral |
 
-### Tasks
+### ✅ Tasks
 | Folder | Topic |
 |---|---|
 | `task-01-three-numbers` | Three integers — basic ops |
@@ -46,13 +46,13 @@ dotnet run
 | `task-08-curve-fit` | Curve fit over tabulated data |
 | `task-10-riemann-sum` | Riemann sum for a polynomial |
 
-### Other
+### 📎 Other
 | Folder | Topic |
 |---|---|
 | `midterm-1-product-catalog` | Midterm — product catalog |
 | `evidence-2-sales-trend` | Evidence 2 — sales trend analysis |
 
-## Notes
+## 📝 Notes
 
 - Prompts may still be in Spanish (original coursework UX).
 - Empty stubs and unrelated projects (`ExploringActions` / DevOps, `BD1`) were left out of this portfolio.
